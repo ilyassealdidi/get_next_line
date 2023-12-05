@@ -52,9 +52,9 @@ Mkfile.old
 dkms.conf
 
 # Others
-.vscode
 main.c
 main_bonus.c
 .normignore
 file1.txt
 file2.txt
+bonus/
