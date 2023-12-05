@@ -6,7 +6,7 @@
 /*   By: ialdidi <ialdidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 11:11:26 by ialdidi           #+#    #+#             */
-/*   Updated: 2023/12/05 16:28:09 by ialdidi          ###   ########.fr       */
+/*   Updated: 2023/12/05 18:21:27 by ialdidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*string;
 
+	if (!string)
+		return (NULL);
 	string = (char *)s;
 	while (*string)
 	{
@@ -65,7 +67,12 @@ char	*ft_strdup(const char *str)
 	char	*string;
 
 	if (!str)
-		return (ft_strdup(""));
+	{
+		ptr = ft_strdup("");
+		if (!ptr)
+			return (NULL);
+		return (ptr);
+	}
 	ptr = (char *)malloc(ft_strlen(str) + 1);
 	if (!ptr)
 		return (NULL);
