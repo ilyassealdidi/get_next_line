@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Others
-main.c
+# main.c
 main_bonus.c
 .normignore
 file1.txt
