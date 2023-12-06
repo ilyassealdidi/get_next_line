@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ialdidi <ialdidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 10:36:01 by ialdidi           #+#    #+#             */
-/*   Updated: 2023/12/06 14:58:54 by ialdidi          ###   ########.fr       */
+/*   Created: 2023/12/06 09:30:44 by ialdidi           #+#    #+#             */
+/*   Updated: 2023/12/06 14:57:32 by ialdidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	update_line(char **str)
 {
@@ -94,19 +94,19 @@ void	read_line(int fd, char **str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str = NULL;
+	static char	*str[OPEN_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0
 		|| BUFFER_SIZE > 2147483647 || read(fd, NULL, 0) < 0)
-		return (free(str), str = NULL);
-	if (!str || !ft_strchr(str, '\n'))
-		read_line(fd, &str);
-	if (!str)
+		return (free(str[fd]), str[fd] = NULL);
+	if (!str[fd] || !ft_strchr(str[fd], '\n'))
+		read_line(fd, &str[fd]);
+	if (!str[fd])
 		return (NULL);
-	line = create_line(str);
+	line = create_line(str[fd]);
 	if (!line)
-		return (str = NULL);
-	update_line(&str);
+		return (str[fd] = NULL);
+	update_line(&str[fd]);
 	return (line);
 }

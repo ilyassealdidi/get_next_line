@@ -52,7 +52,7 @@ Mkfile.old
 dkms.conf
 
 # Others
-.vscode
+.vscode/
 main.c
 main_bonus.c
 .normignore

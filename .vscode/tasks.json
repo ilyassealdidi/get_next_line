@@ -9,8 +9,8 @@
                 "-fansi-escape-codes",
                 "-g",
                 "main.c",
-                "get_next_line.c",
-                "get_next_line_utils.c",
+                "get_next_line_bonus.c",
+                "get_next_line_utils_bonus.c",
                 "-o",
                 "/Users/ialdidi/Private/1337/get_next_line/main.out"
             ],
