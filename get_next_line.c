@@ -6,7 +6,7 @@
 /*   By: ialdidi <ialdidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 10:36:01 by ialdidi           #+#    #+#             */
-/*   Updated: 2023/12/05 18:23:35 by ialdidi          ###   ########.fr       */
+/*   Updated: 2023/12/05 22:56:55 by ialdidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,16 @@ void	update_line(char **str)
 	tmp = *str;
 	while (*tmp && *tmp != '\n')
 		tmp++;
-	if (*tmp != '\n')
+	if (*tmp == '\n' && *(tmp + 1))
 	{
-		free(*str);
-		*str = NULL;
-		tmp = NULL;
-		return ;
-	}
-	if (*(++tmp))
-	{
-		tmp = ft_strdup(tmp);
+		tmp = ft_strdup(++tmp);
 		if (!tmp)
-			return (free(*str), *str = NULL, (void) NULL);
+			return (free(*str), (void)(*str = NULL));
 	}
 	else
-	{
 		tmp = NULL;
-	}
 	free(*str);
 	*str = tmp;
-	tmp = NULL;
 }
 
 char	*create_line(char *str)
@@ -52,34 +42,29 @@ char	*create_line(char *str)
 	i = i + 1 * (str[i] == '\n');
 	extracted_line = (char *)malloc(i + 1);
 	if (!extracted_line)
-		return (free(str), str = NULL, NULL);
-	i = -1;
-	while (str[++i])
+		return (free(str), str = NULL);
+	i = 0;
+	while (str[i])
 	{
-		extracted_line[i] = str[i];	
-		if (str[i] == '\n')
-		{
-			i++;
+		extracted_line[i] = str[i];
+		if (str[i++] == '\n')
 			break ;
-		}
 	}
 	extracted_line[i] = '\0';
 	return (extracted_line);
 }
 
-void	insert_line(char **str, char *buffer, char **nl)
+void	insert_line(char **str, char *buffer)
 {
 	char	*tmp;
 
-	*nl = ft_strchr(buffer, '\n');
 	tmp = ft_strdup(*str);
 	if (!tmp)
 		return (free(*str), (void)(*str = NULL));
 	free(*str);
-	*str = NULL;
+	// *str = NULL;
 	*str = ft_strjoin(tmp, buffer);
 	free(tmp);
-	tmp = NULL;
 }
 
 void	read_line(int fd, char **str)
@@ -102,12 +87,12 @@ void	read_line(int fd, char **str)
 			return ;
 		}
 		buffer[rd] = '\0';
-		insert_line(str, buffer, &nl);
+		nl = ft_strchr(buffer, '\n');
+		insert_line(str, buffer);
 	}
 	free(buffer);
-	buffer = NULL;
 }
-#include <stdio.h>
+
 char	*get_next_line(int fd)
 {
 	static char	*str = NULL;
