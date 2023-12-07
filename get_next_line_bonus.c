@@ -97,8 +97,10 @@ char	*get_next_line(int fd)
 	static char	*str[OPEN_MAX];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0
-		|| BUFFER_SIZE > 2147483647 || read(fd, NULL, 0) < 0)
+	if (fd < 0 || fd > OPEN_MAX
+		|| BUFFER_SIZE <= 0 || BUFFER_SIZE > INT_MAX)
+		return (NULL);
+	if (read(fd, NULL, 0) < 0)
 		return (free(str[fd]), str[fd] = NULL);
 	if (!str[fd] || !ft_strchr(str[fd], '\n'))
 		read_line(fd, &str[fd]);
