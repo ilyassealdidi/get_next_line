@@ -73,7 +73,7 @@ void	read_line(int fd, char **str)
 	int		rd;
 
 	nl = NULL;
-	buffer = malloc(BUFFER_SIZE + 1);
+	buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buffer)
 		return (free(*str), (void)(*str = NULL));
 	while (!nl)
